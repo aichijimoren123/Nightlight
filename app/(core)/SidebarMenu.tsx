@@ -11,7 +11,7 @@ export default function SidebarMenu({ className }: { className: string }) {
   return (
     <aside className={cn(className, "flex flex-col p-2 gap-2")}>
       {links.map((link) => (
-        <div key={link.href} className="shadow-sm p-3 rounded-md">
+        <div key={link.href} className=" border-[1px] p-3 rounded-md">
           <Link key={link.href} href={link.href}>
             {link.label}
           </Link>
