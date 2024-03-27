@@ -5,6 +5,7 @@ const links = [
   { href: "/users", label: "Users" },
   { href: "/dashboard", label: "Dashboard" },
   { href: "/settings", label: "Settings" },
+  { href: "/payments", label: "Payments" },
 ];
 
 export default function SidebarMenu({ className }: { className: string }) {
