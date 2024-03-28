@@ -1,5 +1,5 @@
-import { cn } from "@/src/lib/utils";
-import ThemeSwitcher from "./ThemeSwitch";
+import { cn } from "@/lib/utils";
+import ThemeSwitcher from "../../components/ThemeSwitch";
 import Link from "next/link";
 
 export default function Header({ className }: { className?: string }) {

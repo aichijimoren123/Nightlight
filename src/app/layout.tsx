@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import SidebarMenu from "./SidebarMenu";
-import Header from "./Header";
+import SidebarMenu from "./(admin)/Sidebar";
+import Header from "./(admin)/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,15 +16,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <div className="flex min-h-screen  dark:bg-black">
-          <SidebarMenu className="w-64 shadow-md" />
-          <main className="flex-1 flex flex-col">
-            <Header />
-            <main className="flex-1 p-3">{children}</main>
-          </main>
-        </div>
-      </body>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }

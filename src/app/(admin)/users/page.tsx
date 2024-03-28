@@ -6,7 +6,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/src/components/ui/Table";
+} from "@/components/ui/Table";
 
 export default function Page() {
   return (
