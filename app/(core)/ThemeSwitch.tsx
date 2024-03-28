@@ -1,17 +1,14 @@
 "use client";
-import { Sun } from "lucide-react";
-import { useState } from "react";
 
-export default function ThemeSwitch() {
-  const [theme, setTheme] = useState("light");
-  const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
-  };
+import { useTheme } from "@/components/ThemeProvide/ThemeProvider";
+import { Moon, Sun } from "lucide-react";
+
+export default function ThemeSwitcher() {
+  const { theme, setTheme } = useTheme();
+
   return (
-    <div>
-      <button>
-        <Sun />
-      </button>
-    </div>
+    <button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
+      {theme === "light" ? <Moon /> : <Sun />}
+    </button>
   );
 }
