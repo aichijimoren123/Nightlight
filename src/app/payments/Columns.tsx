@@ -1,7 +1,7 @@
 "use client";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/src/components/ui/Button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,9 +9,9 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/DropdownMenu";
-import { Checkbox } from "@/components/ui/Checkbox";
-import { DataTableColumnHeader } from "@/components/ui/DataTable/DataTableColumnHeader";
+} from "@/src/components/ui/DropdownMenu";
+import { Checkbox } from "@/src/components/ui/Checkbox";
+import { DataTableColumnHeader } from "@/src/components/ui/DataTable/DataTableColumnHeader";
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 export type Payment = {

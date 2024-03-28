@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/src/lib/utils";
 import ThemeSwitcher from "./ThemeSwitch";
 import Link from "next/link";
 
@@ -13,9 +13,9 @@ export default function Header({ className }: { className?: string }) {
         </div>
         <ThemeSwitcher />
         <div>
-          <a href="/auth/login" className="text-lg">
+          <Link href="/auth" className="text-lg">
             Login
-          </a>
+          </Link>
         </div>
       </nav>
     </header>

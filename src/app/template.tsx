@@ -1,0 +1,17 @@
+"use client";
+import { ThemeProvider } from "@/components/ThemeProvide/ThemeProvider";
+import { motion } from "framer-motion";
+export default function Template({ children }: { children: React.ReactNode }) {
+  return (
+    <ThemeProvider attribute={"class"}>
+      <motion.div
+        initial={{ opacity: 0, x: 30 }}
+        animate={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0, x: -30 }}
+        transition={{ duration: 0.3 }}
+      >
+        {children}
+      </motion.div>
+    </ThemeProvider>
+  );
+}
