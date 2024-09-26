@@ -1,9 +1,10 @@
+import { ReactNode } from "react";
+import SidebarMenu from "./Sidebar";
 import Header from "./Header";
-import SidebarMenu from "./SidebarMenu";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <div className="flex min-h-screen dark:bg-black">
+    <div className="flex min-h-screen  dark:bg-black">
       <SidebarMenu className="w-64 shadow-md" />
       <main className="flex-1 flex flex-col">
         <Header />

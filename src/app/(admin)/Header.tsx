@@ -1,18 +1,20 @@
 import { cn } from "@/lib/utils";
+import ThemeSwitcher from "../../components/ThemeSwitch";
+import Link from "next/link";
+import BreadcrumbComponent from "./Breadcrump";
 
 export default function Header({ className }: { className?: string }) {
   return (
     <header className={cn(className, "shadow-sm")}>
       <nav className="flex justify-between items-center py-4">
-        <div>
-          <a href="/" className="text-2xl font-bold">
-            Nightlight
-          </a>
+        <div className="flex-1 px-4">
+          <BreadcrumbComponent />
         </div>
+        <ThemeSwitcher />
         <div>
-          <a href="/auth/login" className="text-lg">
+          <Link href="/auth" className="text-lg">
             Login
-          </a>
+          </Link>
         </div>
       </nav>
     </header>
