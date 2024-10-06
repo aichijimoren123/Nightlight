@@ -1,22 +1,23 @@
 import { cn } from "@/lib/utils";
 import ThemeSwitcher from "../../components/ThemeSwitch";
 import Link from "next/link";
-import BreadcrumbComponent from "./Breadcrump";
+import BreadcrumbComponent from "./components/Breadcrump";
+import TeamSwitcher from "./components/TeamSwitch";
+import { MainNav } from "./components/MainNav";
+import { Search } from "./components/Search";
+import { UserNav } from "./components/UserNav";
 
 export default function Header({ className }: { className?: string }) {
   return (
-    <header className={cn(className, "shadow-sm")}>
-      <nav className="flex justify-between items-center py-4">
-        <div className="flex-1 px-4">
-          <BreadcrumbComponent />
+    <div className="border-b">
+      <div className="flex h-16 items-center px-4">
+        <TeamSwitcher />
+        <MainNav className="mx-6" />
+        <div className="ml-auto flex items-center space-x-4">
+          <Search />
+          <UserNav />
         </div>
-        <ThemeSwitcher />
-        <div>
-          <Link href="/auth" className="text-lg">
-            Login
-          </Link>
-        </div>
-      </nav>
-    </header>
+      </div>
+    </div>
   );
 }

@@ -1,23 +1,169 @@
-import { cn } from "@/lib/utils";
-import Link from "next/link";
+"use client";
 
-const links = [
-  { href: "/users", label: "Users" },
-  { href: "/dashboard", label: "Dashboard" },
-  { href: "/settings", label: "Settings" },
-  { href: "/payments", label: "Payments" },
+import Link from "next/link";
+import { Archive, ArchiveX, File, Inbox, Send, Trash2 } from "lucide-react";
+
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/Button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { useState } from "react";
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@/components/ui/resizable";
+
+interface NavProps {
+  defaultCollapsed?: boolean;
+}
+
+const links: {
+  title: string;
+  label?: string;
+  icon: any;
+  variant: "default" | "ghost";
+}[] = [
+  {
+    title: "Inbox",
+    label: "128",
+    icon: Inbox,
+    variant: "default",
+  },
+  {
+    title: "Drafts",
+    label: "9",
+    icon: File,
+    variant: "ghost",
+  },
+  {
+    title: "Sent",
+    label: "",
+    icon: Send,
+    variant: "ghost",
+  },
+  {
+    title: "Junk",
+    label: "23",
+    icon: ArchiveX,
+    variant: "ghost",
+  },
+  {
+    title: "Trash",
+    label: "",
+    icon: Trash2,
+    variant: "ghost",
+  },
+  {
+    title: "Archive",
+    label: "",
+    icon: Archive,
+    variant: "ghost",
+  },
 ];
 
-export default function SidebarMenu({ className }: { className: string }) {
+export function Nav({ defaultCollapsed }: NavProps) {
+  const [isCollapsed, setIsCollapsed] = useState(defaultCollapsed);
   return (
-    <aside className={cn(className, "flex flex-col p-2 gap-2")}>
-      {links.map((link) => (
-        <div key={link.href} className=" border-b-[1px] border-stone-100 p-3 ">
-          <Link key={link.href} href={link.href}>
-            {link.label}
-          </Link>
+    <ResizablePanelGroup
+      direction="horizontal"
+      onLayout={(sizes: number[]) => {
+        document.cookie = `react-resizable-panels:layout:mail=${JSON.stringify(
+          sizes
+        )}`;
+      }}
+      className="h-full items-stretch"
+    >
+      <ResizablePanel
+        defaultSize={20}
+        collapsedSize={4}
+        collapsible={true}
+        minSize={15}
+        maxSize={20}
+        onCollapse={() => {
+          setIsCollapsed(true);
+          document.cookie = `react-resizable-panels:collapsed=${JSON.stringify(
+            true
+          )}`;
+        }}
+        onResize={() => {
+          setIsCollapsed(false);
+          document.cookie = `react-resizable-panels:collapsed=${JSON.stringify(
+            false
+          )}`;
+        }}
+        className={cn(
+          isCollapsed && "min-w-[50px] transition-all duration-300 ease-in-out"
+        )}
+      >
+        <div
+          data-collapsed={isCollapsed}
+          className="group flex flex-col gap-4 py-2 data-[collapsed=true]:py-2 min-w-[200px] transition-all duration-300 ease-in-out border-r"
+        >
+          <nav className="grid gap-1 px-2 group-[[data-collapsed=true]]:justify-center group-[[data-collapsed=true]]:px-2">
+            {links.map((link, index) =>
+              isCollapsed ? (
+                <Tooltip key={index} delayDuration={0}>
+                  <TooltipTrigger asChild>
+                    <Link
+                      href="#"
+                      className={cn(
+                        buttonVariants({ variant: link.variant, size: "icon" }),
+                        "h-9 w-9",
+                        link.variant === "default" &&
+                          "dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white"
+                      )}
+                    >
+                      <link.icon className="h-4 w-4" />
+                      <span className="sr-only">{link.title}</span>
+                    </Link>
+                  </TooltipTrigger>
+                  <TooltipContent
+                    side="right"
+                    className="flex items-center gap-4"
+                  >
+                    {link.title}
+                    {link.label && (
+                      <span className="ml-auto text-muted-foreground">
+                        {link.label}
+                      </span>
+                    )}
+                  </TooltipContent>
+                </Tooltip>
+              ) : (
+                <Link
+                  key={index}
+                  href="#"
+                  className={cn(
+                    buttonVariants({ variant: link.variant, size: "sm" }),
+                    link.variant === "default" &&
+                      "dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white",
+                    "justify-start"
+                  )}
+                >
+                  <link.icon className="mr-2 h-4 w-4" />
+                  {link.title}
+                  {link.label && (
+                    <span
+                      className={cn(
+                        "ml-auto",
+                        link.variant === "default" &&
+                          "text-background dark:text-white"
+                      )}
+                    >
+                      {link.label}
+                    </span>
+                  )}
+                </Link>
+              )
+            )}
+          </nav>
         </div>
-      ))}
-    </aside>
+      </ResizablePanel>
+      <ResizableHandle withHandle />
+    </ResizablePanelGroup>
   );
 }
