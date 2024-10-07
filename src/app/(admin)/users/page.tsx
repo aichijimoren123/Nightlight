@@ -10,7 +10,7 @@ import {
 
 export default function Page() {
   return (
-    <div>
+    <div className="h-screen">
       <Table>
         <TableCaption>A list of your recent invoices.</TableCaption>
         <TableHeader>
