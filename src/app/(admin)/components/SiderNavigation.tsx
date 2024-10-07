@@ -12,6 +12,7 @@ import {
   Gauge,
   Inbox,
   Send,
+  Settings2,
   Trash2,
   User2,
 } from "lucide-react";
@@ -41,6 +42,13 @@ const links: {
     label: "10",
     href: "/users",
     icon: User2,
+    variant: "ghost",
+  },
+  {
+    title: "Settings",
+    label: "5",
+    href: "/settings",
+    icon: Settings2,
     variant: "ghost",
   },
   {

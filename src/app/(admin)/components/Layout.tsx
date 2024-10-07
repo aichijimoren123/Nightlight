@@ -54,7 +54,7 @@ export function Layout({ defaultCollapsed, children }: NavProps) {
         <SiderNavigation isCollapsed={isCollapsed} />
       </ResizablePanel>
       <ResizableHandle withHandle />
-      <ResizablePanel defaultSize={60} minSize={50} maxSize={80}>
+      <ResizablePanel defaultSize={80} minSize={50} maxSize={80}>
         <div className="flex flex-col">
           <Header />
           <main className="flex-1 p-3">{children}</main>
