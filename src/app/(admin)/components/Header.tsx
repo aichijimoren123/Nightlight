@@ -1,11 +1,7 @@
-import { cn } from "@/lib/utils";
-import ThemeSwitcher from "../../components/ThemeSwitch";
-import Link from "next/link";
-import BreadcrumbComponent from "./components/Breadcrump";
-import TeamSwitcher from "./components/TeamSwitch";
-import { MainNav } from "./components/MainNav";
-import { Search } from "./components/Search";
-import { UserNav } from "./components/UserNav";
+import { MainNav } from "./MainNav";
+import { Search } from "./Search";
+import TeamSwitcher from "./TeamSwitch";
+import { UserNav } from "./UserNav";
 
 export default function Header({ className }: { className?: string }) {
   return (
