@@ -1,24 +1,35 @@
 "use client";
 
-import Link from "next/link";
-import { Archive, ArchiveX, File, Inbox, Send, Trash2 } from "lucide-react";
-
-import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/Button";
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { useState } from "react";
+  Archive,
+  ArchiveX,
+  File,
+  Gauge,
+  Inbox,
+  Send,
+  Trash2,
+  User2,
+} from "lucide-react";
+import Link from "next/link";
+
+import { buttonVariants } from "@/components/ui/Button";
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
+import { useState } from "react";
+import Header from "./Header";
 
 interface NavProps {
   defaultCollapsed?: boolean;
+  children: React.ReactNode;
 }
 
 const links: {
@@ -28,10 +39,22 @@ const links: {
   variant: "default" | "ghost";
 }[] = [
   {
+    title: "Dashboard",
+    label: "",
+    icon: Gauge,
+    variant: "default",
+  },
+  {
+    title: "Users",
+    label: "10",
+    icon: User2,
+    variant: "ghost",
+  },
+  {
     title: "Inbox",
     label: "128",
     icon: Inbox,
-    variant: "default",
+    variant: "ghost",
   },
   {
     title: "Drafts",
@@ -65,7 +88,7 @@ const links: {
   },
 ];
 
-export function Nav({ defaultCollapsed }: NavProps) {
+export function Nav({ defaultCollapsed, children }: NavProps) {
   const [isCollapsed, setIsCollapsed] = useState(defaultCollapsed);
   return (
     <ResizablePanelGroup
@@ -101,7 +124,7 @@ export function Nav({ defaultCollapsed }: NavProps) {
       >
         <div
           data-collapsed={isCollapsed}
-          className="group flex flex-col gap-4 py-2 data-[collapsed=true]:py-2 min-w-[200px] transition-all duration-300 ease-in-out border-r"
+          className="group flex flex-col gap-4 py-2 data-[collapsed=true]:py-2 min-w-[200px] transition-all duration-300 ease-in-out "
         >
           <nav className="grid gap-1 px-2 group-[[data-collapsed=true]]:justify-center group-[[data-collapsed=true]]:px-2">
             {links.map((link, index) =>
@@ -164,6 +187,12 @@ export function Nav({ defaultCollapsed }: NavProps) {
         </div>
       </ResizablePanel>
       <ResizableHandle withHandle />
+      <ResizablePanel minSize={50} maxSize={80}>
+        <div className="flex-1 flex flex-col">
+          <Header />
+          <main className="flex-1 p-3">{children}</main>
+        </div>
+      </ResizablePanel>
     </ResizablePanelGroup>
   );
 }
