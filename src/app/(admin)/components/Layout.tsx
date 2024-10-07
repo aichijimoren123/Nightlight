@@ -88,7 +88,7 @@ const links: {
   },
 ];
 
-export function Nav({ defaultCollapsed, children }: NavProps) {
+export function Layout({ defaultCollapsed, children }: NavProps) {
   const [isCollapsed, setIsCollapsed] = useState(defaultCollapsed);
   return (
     <ResizablePanelGroup
@@ -187,7 +187,7 @@ export function Nav({ defaultCollapsed, children }: NavProps) {
         </div>
       </ResizablePanel>
       <ResizableHandle withHandle />
-      <ResizablePanel minSize={50} maxSize={80}>
+      <ResizablePanel defaultSize={60} minSize={50} maxSize={80}>
         <div className="flex-1 flex flex-col">
           <Header />
           <main className="flex-1 p-3">{children}</main>

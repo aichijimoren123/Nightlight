@@ -1,7 +1,7 @@
-import { MainNav } from "./MainNav";
 import { Search } from "./Search";
+import { MainNav } from "./SideNavigation";
 import TeamSwitcher from "./TeamSwitch";
-import { UserNav } from "./UserNav";
+import { UserNav } from "./UserDropdownMenu";
 
 export default function Header({ className }: { className?: string }) {
   return (
