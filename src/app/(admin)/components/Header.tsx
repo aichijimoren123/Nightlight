@@ -1,5 +1,5 @@
+import { MainNav } from "./HeaderNavigation";
 import { Search } from "./Search";
-import { MainNav } from "./SideNavigation";
 import TeamSwitcher from "./TeamSwitch";
 import { UserNav } from "./UserDropdownMenu";
 
