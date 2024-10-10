@@ -12,7 +12,10 @@ import {
 import { Input } from "@/components/ui/Input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useState } from "react";
 
+import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -21,7 +24,13 @@ const formSchema = z.object({
   password: z.string().min(8, { message: "password is required" }).max(100),
 });
 
+import { signIn } from "next-auth/react";
+
 export default function LoginForm() {
+  const router = useRouter();
+
+  const [showPassword, setShowPassword] = useState(false);
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -31,11 +40,25 @@ export default function LoginForm() {
     },
   });
 
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      const result = await signIn("credentials", {
+        redirect: false,
+        email: values.email,
+        password: values.password,
+      });
+
+      if (result?.error) {
+        console.error("Login failed:", result.error);
+        // You might want to set an error state here to display to the user
+      } else {
+        // Successful login
+        router.push("/dashboard"); // Redirect to dashboard or desired page
+      }
+    } catch (error) {
+      console.error("An unexpected error occurred:", error);
+      // Handle unexpected errors
+    }
   }
 
   return (
@@ -70,7 +93,23 @@ export default function LoginForm() {
                   </Link>
                 </div>
                 <FormControl>
-                  <Input type="password" {...field} />
+                  <div className="relative">
+                    <Input
+                      type={showPassword ? "text" : "password"}
+                      {...field}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2"
+                    >
+                      {showPassword ? (
+                        <EyeOffIcon className="h-4 w-4 text-gray-500" />
+                      ) : (
+                        <EyeIcon className="h-4 w-4 text-gray-500" />
+                      )}
+                    </button>
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>

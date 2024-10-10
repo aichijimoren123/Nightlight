@@ -19,6 +19,12 @@ export const metadata: Metadata = {
 };
 
 export default function DashboardPage() {
+  // TODO: add authentication
+  // const { user } = useAuth();
+  // if (!user) {
+  //   return <Redirect to="/login" />;
+  // }
+
   return (
     <>
       <div className=" flex-col flex">

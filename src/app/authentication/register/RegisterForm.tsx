@@ -11,7 +11,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/Input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRef } from "react";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { useRef, useState } from "react";
 
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -32,7 +33,10 @@ const formSchema = z
   });
 
 export default function RegisterForm() {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const passwordRef = useRef<HTMLInputElement>(null);
+  const confirmPasswordRef = useRef<HTMLInputElement>(null);
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -47,6 +51,14 @@ export default function RegisterForm() {
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
+    // call backend api to create an user account into database
+    const user = fetch("/api/register", {
+      method: "POST",
+      body: JSON.stringify(values),
+    })
+      .then((res) => res.json())
+      .catch((error) => console.error(error));
+
     // ✅ This will be type-safe and validated.
     console.log(values);
   }
@@ -88,7 +100,24 @@ export default function RegisterForm() {
               <FormItem className="grid gap-2">
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input type="password" {...field} ref={passwordRef} />
+                  <div className="relative">
+                    <Input
+                      type={showPassword ? "text" : "password"}
+                      {...field}
+                      ref={passwordRef}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2"
+                    >
+                      {showPassword ? (
+                        <EyeOffIcon className="h-4 w-4 text-gray-500" />
+                      ) : (
+                        <EyeIcon className="h-4 w-4 text-gray-500" />
+                      )}
+                    </button>
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -101,7 +130,26 @@ export default function RegisterForm() {
               <FormItem className="grid gap-2">
                 <FormLabel>ConfirmPassword</FormLabel>
                 <FormControl>
-                  <Input type="password" {...field} />
+                  <div className="relative">
+                    <Input
+                      type={showConfirmPassword ? "text" : "password"}
+                      {...field}
+                      ref={confirmPasswordRef}
+                    />
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setShowConfirmPassword(!showConfirmPassword)
+                      }
+                      className="absolute right-3 top-1/2 -translate-y-1/2"
+                    >
+                      {showConfirmPassword ? (
+                        <EyeOffIcon className="h-4 w-4 text-gray-500" />
+                      ) : (
+                        <EyeIcon className="h-4 w-4 text-gray-500" />
+                      )}
+                    </button>
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
