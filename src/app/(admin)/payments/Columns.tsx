@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/DropdownMenu";
 import { Checkbox } from "@/components/ui/Checkbox";
 import { DataTableColumnHeader } from "@/components/ui/DataTable/DataTableColumnHeader";
+import { cn } from "@/lib/utils";
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 export type Payment = {
@@ -46,7 +47,22 @@ export const columns: ColumnDef<Payment>[] = [
   },
   {
     accessorKey: "status",
-    header: "Status",
+    header: "状态",
+    cell: ({ row }) => {
+      const status = row.getValue("status") as string;
+      return (
+        <div className={cn(
+          "px-2 py-1 rounded-md text-xs font-medium border flex items-center justify-center w-fit",
+          {
+            "border-green-500 text-green-600": status === "success",
+            "border-red-500 text-red-600": status === "failed",
+            "border-yellow-200 text-yellow-400": status === "pending" || status === "processing",
+          }
+        )}>
+          {status}
+        </div>
+      );
+    },
   },
   {
     accessorKey: "email",
@@ -56,15 +72,27 @@ export const columns: ColumnDef<Payment>[] = [
   },
   {
     accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
+    header: () => <div>金额</div>,
     cell: ({ row }) => {
       const amount = parseFloat(row.getValue("amount"));
       const formatted = new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD",
       }).format(amount);
+      const status = row.getValue("status") as string;
 
-      return <div className="text-right font-medium">{formatted}</div>;
+      return (
+        <div className={cn(
+          "text-right font-medium px-2 py-1 rounded-md border flex items-center justify-center w-fit text-sm",
+          {
+            "border-green-500 text-green-600": status === "success",
+            "border-red-500 text-red-600": status === "failed",
+            "border-yellow-200 text-yellow-400": status === "pending" || status === "processing",
+          }
+        )}>
+          {formatted}
+        </div>
+      );
     },
   },
   {

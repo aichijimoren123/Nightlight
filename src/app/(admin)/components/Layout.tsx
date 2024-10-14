@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 import Header from "./Header";
 import { SiderNavigation } from "./SiderNavigation";
+import { links } from "../config";
 
 interface NavProps {
   defaultCollapsed?: boolean;
@@ -51,7 +52,7 @@ export function Layout({ defaultCollapsed, children }: NavProps) {
           isCollapsed && "min-w-[50px] transition-all duration-300 ease-in-out"
         )}
       >
-        <SiderNavigation isCollapsed={isCollapsed} />
+        <SiderNavigation isCollapsed={isCollapsed} links={links} />
       </ResizablePanel>
       <ResizableHandle withHandle />
       <ResizablePanel defaultSize={80} minSize={50} maxSize={80}>

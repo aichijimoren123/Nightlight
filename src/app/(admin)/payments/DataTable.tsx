@@ -1,18 +1,27 @@
 "use client";
-import { useState } from "react";
 import {
   ColumnDef,
+  ColumnFiltersState,
   flexRender,
   getCoreRowModel,
-  useReactTable,
+  getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   SortingState,
-  ColumnFiltersState,
-  getFilteredRowModel,
+  useReactTable,
   VisibilityState,
 } from "@tanstack/react-table";
+import { useState } from "react";
 
+import { Button } from "@/components/ui/Button";
+import { DataTablePagination } from "@/components/ui/DataTable/Pagination";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/DropdownMenu";
+import { Input } from "@/components/ui/Input";
 import {
   Table,
   TableBody,
@@ -21,15 +30,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/Table";
-import { Button } from "@/components/ui/Button";
-import { Input } from "@/components/ui/Input";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/DropdownMenu";
-import { DataTablePagination } from "@/components/ui/DataTable/Pagination";
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -64,7 +65,9 @@ export function DataTable<TData, TValue>({
 
   return (
     <>
+      {/* 表格头部功能区 */}
       <div className="flex items-center py-4">
+        {/* 输入搜索框 */}
         <Input
           placeholder="Filter emails..."
           value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
@@ -73,6 +76,8 @@ export function DataTable<TData, TValue>({
           }
           className="max-w-sm"
         />
+
+        {/* 显示隐藏列操作 */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">

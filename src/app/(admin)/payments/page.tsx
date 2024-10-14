@@ -14,11 +14,11 @@ async function getData(): Promise<Payment[]> {
   ];
 }
 
-export default async function DemoPage() {
+export default async function PaymentPage() {
   const data = await getData();
 
   return (
-    <div className="container mx-auto py-10">
+    <div className="container h-screen mx-auto py-10">
       <DataTable columns={columns} data={data} />
     </div>
   );
