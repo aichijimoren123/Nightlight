@@ -10,6 +10,7 @@ import {
   Map,
   PieChart,
   Settings2,
+  SquareTerminalIcon,
 } from "lucide-react";
 import * as React from "react";
 
@@ -54,6 +55,7 @@ const data = {
       title: "Playground",
       url: "#",
       isActive: true,
+      icon: SquareTerminalIcon,
       items: [
         {
           title: "History",
